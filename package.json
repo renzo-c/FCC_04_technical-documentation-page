@@ -1,0 +1,23 @@
+{
+  "name": "p04_techdocpage",
+  "version": "1.0.0",
+  "description": "FCC 3rd project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renzo-c/fcc_p04.git"
+  },
+  "author": "Renzo Navarro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/renzo-c/fcc_p04/issues"
+  },
+  "homepage": "https://github.com/renzo-c/fcc_p04#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.11"
+  }
+}
