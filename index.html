@@ -9,12 +9,498 @@
     <meta name="author" content="Renzo Navarro" />
     <link rel="stylesheet" href="./style/index.css" />
     <link
-      href="https://fonts.googleapis.com/css?family=Dancing+Script|Roboto"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div>hi</div>
+    <header id="main-header">
+      <div>
+        <i class="material-icons">
+          description
+        </i>
+        <p>&nbspGIT Foundational Concepts</p>
+      </div>
+    </header>
+    <header id="second-header"></header>
+    <div id="main-container">
+      <nav id="navbar">
+        <div class="overlay">
+          <header class="custom-font-header"><a href="#">GIT Basics</a></header>
+          <a href="#Getting_a_Git_Repository" class="nav-link"
+            >Getting a Git Repository</a
+          >
+          <a href="#Recording_Changes" class="nav-link">Recording Changes</a>
+          <a href="#Viewing_the_Commit_History" class="nav-link"
+            >Viewing the Commit History</a
+          >
+          <a href="#Working_with_Remotes" class="nav-link"
+            >Working with Remotes</a
+          >
+          <a href="#Tagging" class="nav-link">Tagging</a>
+          <footer id="sign">
+            <h5>
+              Coded by
+              <a
+                href="https://www.linkedin.com/in/renzo-navarro-29a83528/"
+                target="_blank"
+                >Renzo Navarro</a
+              >
+            </h5>
+          </footer>
+        </div>
+      </nav>
+      <main id="main-doc">
+        <div class="menu">
+          <span class="bar"></span>
+        </div>
+        <section id="Getting_a_Git_Repository" class="main-section">
+          <header class="custom-font-header">Getting a Git Repository</header>
+          <p>
+            You can get a Git project using two main approaches. The first takes
+            an existing project or directory and imports it into Git. The second
+            clones an existing Git repository from another server.
+          </p>
+          <h1>Initializing a Repository in an Existing Directory</h1>
+          <p>
+            If you’re starting to track an existing project in Git, you need to
+            go to the project’s directory and type
+          </p>
+          <br />
+          <code>$ git init</code>
+          <br />
+          <p>
+            This creates a new subdirectory named .git that contains all of your
+            necessary repository files — a Git repository skeleton. At this
+            point, nothing in your project is tracked yet. (See Chapter 9 for
+            more information about exactly what files are contained in the .git
+            directory you just created.)
+          </p>
+          <p>
+            If you want to start version-controlling existing files (as opposed
+            to an empty directory), you should probably begin tracking those
+            files and do an initial commit. You can accomplish that with a few
+            git add commands that specify the files you want to track, followed
+            by a commit:
+          </p>
+          <br />
+          <code
+            >$ git add *.c $ git add README $ git commit -m 'initial project
+            version'</code
+          >
+          <br />
+          <p>
+            We’ll go over what these commands do in just a minute. At this
+            point, you have a Git repository with tracked files and an initial
+            commit.
+          </p>
+          <h1>Cloning an Existing Repository</h1>
+          <p>
+            If you want to get a copy of an existing Git repository — for
+            example, a project you’d like to contribute to — the command you
+            need is git clone. If you’re familiar with other VCS systems such as
+            Subversion, you’ll notice that the command is clone and not
+            checkout. This is an important distinction — Git receives a copy of
+            nearly all data that the server has. Every version of every file for
+            the history of the project is pulled down when you run git clone. In
+            fact, if your server disk gets corrupted, you can use any of the
+            clones on any client to set the server back to the state it was in
+            when it was cloned (you may lose some server-side hooks and such,
+            but all the versioned data would be there — see Chapter 4 for more
+            details).
+          </p>
+
+          <p>
+            You clone a repository with git clone [url]. For example, if you
+            want to clone the Ruby Git library called Grit, you can do so like
+            this:
+          </p>
+          <br />
+          <code>$ git clone git://github.com/schacon/grit.git</code>
+          <br />
+          <p>
+            That creates a directory named grit, initializes a .git directory
+            inside it, pulls down all the data for that repository, and checks
+            out a working copy of the latest version. If you go into the new
+            grit directory, you’ll see the project files in there, ready to be
+            worked on or used. If you want to clone the repository into a
+            directory named something other than grit, you can specify that as
+            the next command-line option:
+          </p>
+          <br />
+          <code>$ git clone git://github.com/schacon/grit.git mygrit</code>
+          <br />
+          <p>
+            That command does the same thing as the previous one, but the target
+            directory is called mygrit.
+          </p>
+          <p>
+            Git has a number of different transfer protocols you can use. The
+            previous example uses the git:// protocol, but you may also see
+            http(s):// or user@server:/path.git, which uses the SSH transfer
+            protocol. Chapter 4 will introduce all of the available options the
+            server can set up to access your Git repository and the pros and
+            cons of each.
+          </p>
+          <br />
+          <blockquote>
+            <cite>
+              <li>
+                Anonymous. (2019). 1 Git Basics - Getting a Git Repository.
+                Retrieved from
+                https://git-scm.com/book/en/v1/Git-Basics-Getting-a-Git-Repository
+              </li>
+            </cite>
+          </blockquote>
+        </section>
+        <section id="Recording_Changes" class="main-section">
+          <header class="custom-font-header">Recording Changes</header>
+          <p>
+            You have a bona fide Git repository and a checkout or working copy
+            of the files for that project. You need to make some changes and
+            commit snapshots of those changes into your repository each time the
+            project reaches a state you want to record.
+          </p>
+          <p>
+            Remember that each file in your working directory can be in one of
+            two states: tracked or untracked. Tracked files are files that were
+            in the last snapshot; they can be unmodified, modified, or staged.
+            Untracked files are everything else — any files in your working
+            directory that were not in your last snapshot and are not in your
+            staging area. When you first clone a repository, all of your files
+            will be tracked and unmodified because you just checked them out and
+            haven’t edited anything.
+          </p>
+          <p>
+            As you edit files, Git sees them as modified, because you’ve changed
+            them since your last commit. You stage these modified files and then
+            commit all your staged changes, and the cycle repeats. This
+            lifecycle is illustrated in Figure 2-1.
+          </p>
+
+          <h1>Checking the Status of Your Files</h1>
+
+          <p>
+            The main tool you use to determine which files are in which state is
+            the git status command. If you run this command directly after a
+            clone, you should see something like this:
+          </p>
+          <br />
+          <code
+            >$ git status <br />On branch master<br />
+            nothing to commit, working directory clean</code
+          >
+          <br />
+          <p>
+            This means you have a clean working directory — in other words, no
+            tracked files are modified. Git also doesn’t see any untracked
+            files, or they would be listed here. Finally, the command tells you
+            which branch you’re on. For now, that is always master, which is the
+            default; you won’t worry about it here. The next chapter will go
+            over branches and references in detail.
+          </p>
+
+          <p>
+            Let’s say you add a new file to your project, a simple README file.
+            If the file didn’t exist before, and you run git status, you see
+            your untracked file like so:
+          </p>
+          <br />
+          <code
+            >$ vim README<br />
+            $ git status<br />
+            On branch master<br />
+            Untracked files:<br />
+            (use "git add &ltfile&gt..." to include in what will be
+            committed)<br />
+            <br />
+            README
+            <br />
+            nothing added to commit but untracked files present (use "git add"
+            to track)</code
+          >
+          <br />
+
+          <p>
+            You can see that your new README file is untracked, because it’s
+            under the “Untracked files” heading in your status output. Untracked
+            basically means that Git sees a file you didn’t have in the previous
+            snapshot (commit); Git won’t start including it in your commit
+            snapshots until you explicitly tell it to do so. It does this so you
+            don’t accidentally begin including generated binary files or other
+            files that you did not mean to include. You do want to start
+            including README, so let’s start tracking the file.
+          </p>
+          <br />
+          <blockquote>
+            <cite>
+              <li>
+                Anonymous. (2019). 2 Git Basics - Recording Changes to the
+                Repository. Retrieved from
+                https://git-scm.com/book/en/v1/Git-Basics-Recording-Changes-to-the-Repository
+              </li>
+            </cite>
+          </blockquote>
+        </section>
+        <section id="Viewing_the_Commit_History" class="main-section">
+          <header class="custom-font-header">Viewing the Commit History</header>
+          <p>
+            After you have created several commits, or if you have cloned a
+            repository with an existing commit history, you’ll probably want to
+            look back to see what has happened. The most basic and powerful tool
+            to do this is the git log command.
+          </p>
+          <p>
+            These examples use a very simple project called simplegit that I
+            often use for demonstrations. To get the project, run
+          </p>
+          <br />
+          <code>git clone git://github.com/schacon/simplegit-progit.git</code>
+          <br />
+          <p>
+            When you run git log in this project, you should get output that
+            looks something like this:
+          </p>
+          <br />
+          <code
+            >$ git log<br />
+            commit ca82a6dff817ec66f44342007202690a93763949<br />
+            Author: Scott Chacon &ltschacon@gee-mail.com&gt<br />
+            Date: Mon Mar 17 21:52:11 2008 -0700<br />
+            <br />
+            changed the version number
+            <br />
+            commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7<br />
+            Author: Scott Chacon &ltschacon@gee-mail.com&gt<br />
+            Date: Sat Mar 15 16:40:33 2008 -0700
+            <br />
+            removed unnecessary test code
+            <br />
+            commit a11bef06a3f659402fe7563abf99ad00de2209e6<br />
+            Author: Scott Chacon &ltschacon@gee-mail.com&gt<br />
+            Date: Sat Mar 15 10:31:28 2008 -0700
+            <br />
+            first commit</code
+          >
+          <br />
+          <p>
+            By default, with no arguments, git log lists the commits made in
+            that repository in reverse chronological order. That is, the most
+            recent commits show up first. As you can see, this command lists
+            each commit with its SHA-1 checksum, the author’s name and e-mail,
+            the date written, and the commit message.
+          </p>
+          <p>
+            A huge number and variety of options to the git log command are
+            available to show you exactly what you’re looking for. Here, we’ll
+            show you some of the most-used options.
+          </p>
+          <p>
+            One of the more helpful options is -p, which shows the diff
+            introduced in each commit. You can also use -2, which limits the
+            output to only the last two entries:
+          </p>
+          <br />
+          <code
+            >$ git log -p -2<br />
+            commit ca82a6dff817ec66f44342007202690a93763949<br />
+            Author: Scott Chacon &ltschacon@gee-mail.com&gt<br />
+            Date: Mon Mar 17 21:52:11 2008 -0700
+            <br />
+            changed the version number
+            <br />
+            diff --git a/Rakefile b/Rakefile<br />
+            index a874b73..8f94139 100644<br />
+            --- a/Rakefile<br />
+            +++ b/Rakefile<br />
+            @@ -5,5 +5,5 @@ require 'rake/gempackagetask'<br />
+            spec = Gem::Specification.new do |s|<br />
+            s.name = "simplegit"<br />
+            - s.version = "0.1.0"<br />
+            + s.version = "0.1.1"<br />
+            s.author = "Scott Chacon"<br />
+            s.email = "schacon@gee-mail.com<br />
+
+            commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7<br />
+            Author: Scott Chacon &ltschacon@gee-mail.com&gt<br />
+            Date: Sat Mar 15 16:40:33 2008 -0700
+            <br />
+            removed unnecessary test code
+            <br />
+            diff --git a/lib/simplegit.rb b/lib/simplegit.rb<br />
+            index a0a60ae..47c6340 100644<br />
+            --- a/lib/simplegit.rb<br />
+            +++ b/lib/simplegit.rb<br />
+            @@ -18,8 +18,3 @@ class SimpleGit<br />
+            end<br />
+            <br />
+            end<br />
+            -<br />
+            -if $0 == __FILE__<br />
+            - git = SimpleGit.new<br />
+            - puts git.show<br />
+            -end<br />
+            \ No newline at end of file</code
+          >
+          <br />
+          <p>
+            This option displays the same information but with a diff directly
+            following each entry. This is very helpful for code review or to
+            quickly browse what happened during a series of commits that a
+            collaborator has added.
+          </p>
+          <br />
+          <blockquote>
+            <cite>
+              <li>
+                Anonymous. (2019). 3 Git Basics - Viewing the Commit History.
+                Retrieved from
+                https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History
+              </li>
+            </cite>
+          </blockquote>
+        </section>
+        <section id="Working_with_Remotes" class="main-section">
+          <header class="custom-font-header">Working with Remotes</header>
+          <p>
+            To be able to collaborate on any Git project, you need to know how
+            to manage your remote repositories. Remote repositories are versions
+            of your project that are hosted on the Internet or network
+            somewhere. You can have several of them, each of which generally is
+            either read-only or read/write for you. Collaborating with others
+            involves managing these remote repositories and pushing and pulling
+            data to and from them when you need to share work. Managing remote
+            repositories includes knowing how to add remote repositories, remove
+            remotes that are no longer valid, manage various remote branches and
+            define them as being tracked or not, and more. In this section,
+            we’ll cover these remote-management skills.
+          </p>
+          <h1>Showing Your Remotes</h1>
+          <p>
+            To see which remote servers you have configured, you can run the git
+            remote command. It lists the shortnames of each remote handle you’ve
+            specified. If you’ve cloned your repository, you should at least see
+            origin — that is the default name Git gives to the server you cloned
+            from:
+          </p>
+          <br />
+          <code
+            >$ git clone git://github.com/schacon/ticgit.git<br />
+            Cloning into 'ticgit'...<br />
+            remote: Reusing existing pack: 1857, done.<br />
+            remote: Total 1857 (delta 0), reused 0 (delta 0)<br />
+            Receiving objects: 100% (1857/1857), 374.35 KiB | 193.00 KiB/s,
+            done.<br />
+            Resolving deltas: 100% (772/772), done.<br />
+            Checking connectivity... done.<br />
+            $ cd ticgit<br />
+            $ git remote<br />
+            origin</code
+          >
+          <br />
+          <p>
+            You can also specify -v, which shows you the URL that Git has stored
+            for the shortname to be expanded to:
+          </p>
+          <br />
+          <code
+            >$ git remote -v<br />
+            origin git://github.com/schacon/ticgit.git (fetch)<br />
+            origin git://github.com/schacon/ticgit.git (push)</code
+          >
+          <br />
+          <p>
+            If you have more than one remote, the command lists them all. For
+            example, my Grit repository looks something like this.
+          </p>
+          <br />
+          <code
+            >$ cd grit<br />
+            $ git remote -v<br />
+            bakkdoor git://github.com/bakkdoor/grit.git<br />
+            cho45 git://github.com/cho45/grit.git<br />
+            defunkt git://github.com/defunkt/grit.git<br />
+            koke git://github.com/koke/grit.git<br />
+            origin git@github.com:mojombo/grit.git</code
+          >
+          <br />
+          <p>
+            This means I can pull contributions from any of these users pretty
+            easily. But notice that only the origin remote is an SSH URL, so
+            it’s the only one I can push to (we’ll cover why this is in Chapter
+            4).
+          </p>
+          <br />
+          <blockquote>
+            <cite>
+              <li>
+                Anonymous. (2019). 4 Git Basics - Undoing Things. Retrieved from
+                https://git-scm.com/book/en/v1/Git-Basics-Undoing-Things
+              </li>
+            </cite>
+          </blockquote>
+        </section>
+        <section id="Tagging" class="main-section">
+          <header class="custom-font-header">Tagging</header>
+          <p>
+            Like most VCSs, Git has the ability to tag specific points in
+            history as being important. Generally, people use this functionality
+            to mark release points (v1.0, and so on). In this section, you’ll
+            learn how to list the available tags, how to create new tags, and
+            what the different types of tags are.
+          </p>
+          <h1>Listing Your Tags</h1>
+          <p>
+            Listing the available tags in Git is straightforward. Just type git
+            tag:
+          </p>
+          <br />
+          <code>$ git tag v0.1 v1.3</code>
+          <br />
+          <p>
+            This command lists the tags in alphabetical order; the order in
+            which they appear has no real importance.
+          </p>
+          <p>
+            You can also search for tags with a particular pattern. The Git
+            source repo, for instance, contains more than 240 tags. If you’re
+            only interested in looking at the 1.4.2 series, you can run this:
+          </p>
+          <br />
+          <code
+            >$ git tag -l 'v1.4.2.*' v1.4.2.1 v1.4.2.2 v1.4.2.3 v1.4.2.4
+          </code>
+          <br />
+          <h1>Creating Tags</h1>
+          <p>
+            Git uses two main types of tags: lightweight and annotated. A
+            lightweight tag is very much like a branch that doesn’t change —
+            it’s just a pointer to a specific commit. Annotated tags, however,
+            are stored as full objects in the Git database. They’re checksummed;
+            contain the tagger name, e-mail, and date; have a tagging message;
+            and can be signed and verified with GNU Privacy Guard (GPG). It’s
+            generally recommended that you create annotated tags so you can have
+            all this information; but if you want a temporary tag or for some
+            reason don’t want to keep the other information, lightweight tags
+            are available too.
+          </p>
+          <br />
+          <blockquote>
+            <cite>
+              <li>
+                Anonymous. (2019). 5 Git Basics - Working with Remotes.
+                Retrieved from
+                https://git-scm.com/book/en/v1/Git-Basics-Working-with-Remotes
+              </li>
+            </cite>
+          </blockquote>
+        </section>
+      </main>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="scripts/index.js"></script>
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
