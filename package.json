@@ -1,7 +1,7 @@
 {
   "name": "p04_techdocpage",
   "version": "1.0.0",
-  "description": "FCC 3rd project",
+  "description": "FCC 4th project",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js"
