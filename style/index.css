@@ -24,7 +24,7 @@ html {
   --main-white: white;
   --main-red: red;
   --main-bg-color: #f1eff0;
-  min-width: 411px;
+  width: 100vw;
 }
 section {
   padding: 2rem;
@@ -150,6 +150,13 @@ section p {
 #sign a {
   color: blue;
 }
+
+@media only screen and (max-width: 340px) {
+  #main-header p {
+    font-size: 1.8rem;
+  }
+}
+
 @media screen and (max-width: 870px) {
   /*Header - Nav Toggle*/
   .menu {
@@ -217,7 +224,7 @@ section p {
   #main-doc,
   #main-header,
   #second-header {
-    min-width: 411px;
+    width: 100vw;
   }
 
   /* navbar */
